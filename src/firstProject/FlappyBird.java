@@ -10,13 +10,13 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     int boardWidth = 360;
     int boardHeight = 640;
 
-    //images
+
     Image backgroundImg;
     Image birdImg;
     Image topPipeImg;
     Image bottomPipeImg;
 
-    //bird class
+
     int birdX = boardWidth / 8;
     int birdY = boardWidth / 2;
     int birdWidth = 34;
@@ -34,10 +34,10 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    //pipe class
+
     int pipeX = boardWidth;
     int pipeY = 0;
-    int pipeWidth = 64;  //scaled by 1/6
+    int pipeWidth = 64;
     int pipeHeight = 512;
 
     class Pipe {
@@ -53,10 +53,9 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    //game logic
     Bird bird;
-    int velocityX = -4; //move pipes to the left speed (simulates bird moving right)
-    int velocityY = 0; //move bird up/down speed.
+    int velocityX = -4;
+    int velocityY = 0;
     int gravity = 1;
 
     ArrayList<Pipe> pipes;
@@ -72,17 +71,14 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         setFocusable(true);
         addKeyListener(this);
 
-        //load images with corrected paths
         backgroundImg = new ImageIcon(getClass().getResource("/firstProject/flappybirdbg.png")).getImage();
         birdImg = new ImageIcon(getClass().getResource("/firstProject/flappybird.png")).getImage();
         topPipeImg = new ImageIcon(getClass().getResource("/firstProject/toppipe.png")).getImage();
         bottomPipeImg = new ImageIcon(getClass().getResource("/firstProject/bottompipe.png")).getImage();
 
-        //bird
         bird = new Bird(birdImg);
         pipes = new ArrayList<Pipe>();
 
-        //place pipes timer
         placePipeTimer = new Timer(1500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,8 +87,7 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         });
         placePipeTimer.start();
 
-        //game timer
-        gameLoop = new Timer(1000 / 60, this); //how long it takes to start timer, milliseconds gone between frames 
+        gameLoop = new Timer(1000 / 60, this); 
         gameLoop.start();
     }
 
@@ -115,13 +110,10 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     }
 
     public void draw(Graphics g) {
-        //background
         g.drawImage(backgroundImg, 0, 0, this.boardWidth, this.boardHeight, null);
 
-        //bird
         g.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height, null);
 
-        //pipes
         for (Pipe pipe : pipes) {
             g.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height, null);
         }
